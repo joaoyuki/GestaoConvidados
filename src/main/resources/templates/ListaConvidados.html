@@ -1,37 +1,60 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width" />
-        <title>Lista de Convidados</title>
-        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"
-              rel="stylesheet"/>
-        <link th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"
-              rel="stylesheet"/>
-    </head>
-    <body>
-        <div class="panel panel-default" style="margin: 10px">
-            <div class="panel-heading">
-                <h1 class="panel-title">Lista de convidados</h1>
-            </div>
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Lista de Convidados</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous" rel="stylesheet" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
 
-            <div class="panel-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Acompanhantes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>João</td>
-                            <td>3</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </body>
+
+</head>
+<body>
+	<div class="panel panel-default" style="margin: 10px">
+		<div class="panel-heading">
+			<h1 class="panel-title">Lista de convidados</h1>
+		</div>
+
+		<form class="form-inline" method="POST" style="margin: 20px 0" th:object="${convidado}" th:action="@{/paginaConvidados/salvarConvidados}"	>
+			<div class="form-group">
+				<input type="text" 
+						class="form-control" 
+						placeholder="Nome"
+						th:field="*{nome}" /> 
+				<input
+					type="text" 
+					class="form-control" 
+					placeholder="Acompanhantes"
+					th:field="*{quantidadeAcompanhantes}" />
+				<button type="submit" class="btn btn-primary">Adicionar</button>
+			</div>
+		</form>
+
+		<div class="panel-body">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Acompanhantes</th>
+						<th>Editar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="convidado : ${convidados}">
+						<td th:text="${convidado.nome}"></td>
+						<td th:text="${convidado.quantidadeAcompanhantes}"></td>
+						<td><a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${post.id})}">Editar</a> </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
 </html>
